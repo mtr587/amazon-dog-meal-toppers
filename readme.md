@@ -1,4 +1,4 @@
-# Best Dog Meal Toppers
+# Best Dog Meal Toppers — Treats & Chews
 
 A static affiliate website for Amazon Associates, showcasing the best dog meal toppers with research-backed information.
 
@@ -6,16 +6,14 @@ Built with vanilla HTML/CSS — no frameworks, no build step, no bloat.
 
 ## Website
 
-🌐 **https://mtr587.github.io/amazon-dog-meal-toppers/**
+🌐 **https://mtr587.github.io/treats-and-chews/**
 
 ## Deploy to GitHub Pages
 
-1. Fork or push this repo to `mtr587/amazon-dog-meal-toppers`
+1. Fork or push this repo to `mtr587/treats-and-chews`
 2. Go to **Settings → Pages**
 3. Set source to **Deploy from branch: main /root**
-4. Visit `https://mtr587.github.io/amazon-dog-meal-toppers/`
-
-Or use the `docs/` folder approach — just copy `index.html` into `docs/` and point Pages there.
+4. Visit `https://mtr587.github.io/treats-and-chews/`
 
 ## Affiliate Links
 
