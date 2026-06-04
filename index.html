@@ -65,9 +65,70 @@
         }
         .hero .updated { font-size: .85rem; color: #a0aec0; margin-top: 20px; }
 
+        /* Layout: sidebar + main */
+        .page-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+        }
+
+        /* Sidebar TOC */
+        .sidebar {
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: block;
+                flex: 0 0 220px;
+                position: relative;
+            }
+            .sidebar-inner {
+                position: sticky;
+                top: 30px;
+                padding: 30px 10px 30px 0;
+                border-right: 1px solid #e0e0e0;
+                margin-right: 30px;
+            }
+            .sidebar label {
+                font-size: .75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: .05em;
+                color: #999;
+                display: block;
+                margin-bottom: 16px;
+            }
+            .sidebar a {
+                display: block;
+                font-size: .82rem;
+                color: #555;
+                text-decoration: none;
+                padding: 6px 0;
+                border-left: 2px solid transparent;
+                padding-left: 12px;
+                transition: color .15s, border-color .15s;
+            }
+            .sidebar a:hover,
+            .sidebar a.active {
+                color: #0984e3;
+                border-left-color: #0984e3;
+            }
+            .sidebar a.sub {
+                padding-left: 24px;
+                font-size: .78rem;
+                color: #888;
+            }
+            .main-content {
+                flex: 1;
+                min-width: 0;
+            }
+        }
+
         /* Sections */
         section { padding: 50px 0; }
         section:nth-child(even) { background: #fff; }
+        .main-content section:first-of-type { padding-top: 40px; }
         h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 20px; color: #2d3436; }
         h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; color: #2d3436; }
         p { margin-bottom: 16px; color: #444; }
@@ -150,6 +211,12 @@
             font-size: .78rem;
             font-weight: 600;
             color: #2d3436;
+            margin-bottom: 6px;
+        }
+        .product-info .match {
+            font-size: .88rem;
+            color: #0984e3;
+            font-style: italic;
             margin-bottom: 10px;
         }
         .product-info .desc { font-size: .92rem; color: #555; margin-bottom: 12px; line-height: 1.5; }
@@ -223,6 +290,41 @@
         .faq-item h3 { margin-bottom: 6px; cursor: default; }
         .faq-item p { font-size: .92rem; margin-bottom: 0; }
 
+        /* Mobile TOC btn */
+        .toc-toggle-mobile {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: .85rem;
+            cursor: pointer;
+            color: #555;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        @media (min-width: 1024px) {
+            .toc-toggle-mobile { display: none; }
+        }
+        .mobile-toc-links {
+            display: none;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+        .mobile-toc-links.open { display: block; }
+        .mobile-toc-links a {
+            display: block;
+            font-size: .85rem;
+            color: #555;
+            text-decoration: none;
+            padding: 6px 0;
+        }
+        .mobile-toc-links a.sub { padding-left: 16px; font-size: .82rem; color: #888; }
+
         /* Footer */
         footer {
             background: #2d3436;
@@ -265,204 +367,245 @@
     </div>
 </header>
 
-<!-- What Are Meal Toppers -->
-<section>
-    <div class="container">
-        <h2>What Are Dog Meal Toppers?</h2>
-        <p>They're exactly what they sound like — add-ons you sprinkle, scoop, or stir into your dog's regular food. A finishing touch. A little extra flavor, moisture, or nutrition to make that bowl of brown pellets a lot more interesting.</p>
-        <p>They're not a meal replacement. They're a supplement for a <em>specific</em> problem: a picky eater who walks away from the bowl, a senior who needs more joint support, or a dog who's just plain bored of eating the same thing twice a day for years.</p>
-        <p>Americans are spending more on pet food than ever. Here's what the numbers say:</p>
+<div class="page-wrap">
 
-        <div class="data-row">
-            <div class="data-card">
-                <span class="number">$68.3B</span>
-                <span class="label">U.S. pet food &amp; treat sales in 2024</span>
-                <span class="source"><a href="https://americanpetproducts.org/industry-trends-and-stats" target="_blank" rel="noopener">APPA, 2026 State of the Industry Report</a></span>
+    <!-- Desktop sidebar TOC -->
+    <aside class="sidebar">
+        <nav class="sidebar-inner" id="toc">
+            <label>On this page</label>
+            <a href="#what-are-toppers">What Are Meal Toppers?</a>
+            <a href="#science" class="sub">Does Science Back It Up?</a>
+            <a href="#picks">Top Picks</a>
+            <a href="#product-1" class="sub">Beg &amp; Barker Beef</a>
+            <a href="#product-2" class="sub">Shakers Blueberry Muffin</a>
+            <a href="#product-3" class="sub">Soft Bites Blueberry Beetroot</a>
+            <a href="#how-to-choose">How to Choose</a>
+            <a href="#faq">Quick FAQ</a>
+        </nav>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main-content">
+
+        <!-- Mobile TOC toggle -->
+        <div style="padding:0 20px;">
+            <button class="toc-toggle-mobile" onclick="toggleMobileToc()">☰ On this page</button>
+            <div class="mobile-toc-links" id="mobileToc">
+                <a href="#what-are-toppers">What Are Meal Toppers?</a>
+                <a href="#science" class="sub">Does Science Back It Up?</a>
+                <a href="#picks">Top Picks</a>
+                <a href="#product-1" class="sub">Beg &amp; Barker Beef</a>
+                <a href="#product-2" class="sub">Shakers Blueberry Muffin</a>
+                <a href="#product-3" class="sub">Soft Bites Blueberry Beetroot</a>
+                <a href="#how-to-choose">How to Choose</a>
+                <a href="#faq">Quick FAQ</a>
             </div>
-            <div class="data-card">
-                <span class="number">71M</span>
-                <span class="label">U.S. households own a dog — the highest on record</span>
-                <span class="source"><a href="https://americanpetproducts.org/industry-trends-and-stats" target="_blank" rel="noopener">APPA 2025 National Pet Owners Survey</a></span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Do They Actually Work? -->
-<section>
-    <div class="container">
-        <h2>Does Science Back It Up?</h2>
-        <p>Short answer: yes, if you're using them for the right reason.</p>
-
-        <div class="summary-box">
-            <strong>The bottom line:</strong> Dogs evolved as scavengers who prefer variety. Eating the same kibble twice a day isn't natural. Toppers add aroma, texture, and moisture — the three things that make a meal interesting to a dog. The <a href="https://www.petfoodinstitute.org/facts-and-advice/" target="_blank" rel="noopener">Pet Food Institute</a> notes that more than half of U.S. dogs and cats are overweight or obese — a sign that many pets on standard diets aren't getting nutrition tailored to their needs. Targeted toppers can help address those gaps.
         </div>
 
-        <h3>Nutritional gaps</h3>
-        <p>Most kibble is complete and balanced — for a generic dog. But seniors, puppies, and dogs with health conditions often have specific gaps. According to the <a href="https://www.petfoodinstitute.org/facts-and-advice/" target="_blank" rel="noopener">Pet Food Institute</a>, more than half of U.S. dogs and cats are overweight or obese — a reminder that one-size-fits-all feeding doesn't work for every pet. A targeted topper can bridge specific gaps: omega-3s for skin and coat, joint nutrients for seniors, without switching foods entirely.</p>
+        <!-- What Are Meal Toppers -->
+        <section id="what-are-toppers">
+            <div class="container">
+                <h2>What Are Dog Meal Toppers?</h2>
+                <p>They're exactly what they sound like — add-ons you sprinkle, scoop, or stir into your dog's regular food. A finishing touch. A little extra flavor, moisture, or nutrition to make that bowl of brown pellets a lot more interesting.</p>
+                <p>They're not a meal replacement. They're a supplement for a <em>specific</em> problem: a picky eater who walks away from the bowl, a senior who needs more joint support, or a dog who's just plain bored of eating the same thing twice a day for years.</p>
+                <p>Americans are spending more on pet food than ever. Here's what the numbers say:</p>
 
-        <h3>Hydration</h3>
-        <p>Broths, gravies, wet toppers — these are the easiest way to get more water into a dog that doesn't drink enough. Chronic mild dehydration is a known risk factor for urinary tract issues and kidney problems, especially in breeds prone to them. A moisture-rich topper can help bridge the gap without forcing your dog to drink more from the bowl.</p>
-    </div>
-</section>
-
-<!-- Products -->
-<section>
-    <div class="container-wide">
-        <h2>Top Picks for 2026</h2>
-        <p>Every dog is different. We picked toppers for different needs. Scroll to find yours.</p>
-
-        <div class="affiliate-note">
-            ⓘ When you buy through our links, we may earn a commission. This doesn't affect our picks — we recommend what we'd feed our own dogs.
-        </div>
-
-        <div class="products">
-
-            <!-- Product 1: Beg & Barker Beef -->
-            <div class="product-card">
-                <div class="product-img">🥩</div>
-                <div class="product-info">
-                    <h3>Beg &amp; Barker Beef Dog Food Topper</h3>
-                    <p class="brand">Beg &amp; Barker &bull; 8 oz &bull; Single ingredient &bull; Made in USA</p>
-                    <span class="best-for">Best for: Sensitive stomachs &amp; picky eaters</span>
-                    <p class="desc">One ingredient: whole beef. Nothing else. If your dog has allergies, a finicky appetite, or you just want to know exactly what's in the bowl, this is as clean as it gets. Human-grade, USA-sourced. Dogs who turn up their nose at kibble go wild for this.</p>
-                    <button class="pros-cons-toggle" onclick="toggleProsCons(this)">
-                        <span>Show pros &amp; cons</span>
-                        <span class="arrow">&#9660;</span>
-                    </button>
-                    <div class="pros-cons-content">
-                        <div class="grid">
-                            <div class="pros">
-                                <strong>👍 Pros</strong>
-                                <span>Single ingredient — no fillers</span>
-                                <span>Human-grade, USA beef</span>
-                                <span>Safe for all life stages</span>
-                            </div>
-                            <div class="cons">
-                                <strong>👎 Cons</strong>
-                                <span>Beef only — no variety</span>
-                                <span>Small pouch (8 oz)</span>
-                            </div>
-                        </div>
+                <div class="data-row">
+                    <div class="data-card">
+                        <span class="number">$68.3B</span>
+                        <span class="label">U.S. pet food &amp; treat sales in 2024</span>
+                        <span class="source"><a href="https://americanpetproducts.org/industry-trends-and-stats" target="_blank" rel="noopener">APPA, 2026 State of the Industry Report</a></span>
                     </div>
-                    <a class="btn" href="https://www.amazon.com/dp/B0CBN69T3P?tag=jamesma06-20" target="_blank" rel="nofollow sponsored">See why picky eaters love it <small>&#8594;</small></a>
+                    <div class="data-card">
+                        <span class="number">71M</span>
+                        <span class="label">U.S. households own a dog — the highest on record</span>
+                        <span class="source"><a href="https://americanpetproducts.org/industry-trends-and-stats" target="_blank" rel="noopener">APPA 2025 National Pet Owners Survey</a></span>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Product 2: What's Barking Shakers Blueberry Muffin -->
-            <div class="product-card">
-                <div class="product-img">🧁</div>
-                <div class="product-info">
-                    <h3>What's Barking Shakers Blueberry Muffin Dog Meal Topper</h3>
-                    <p class="brand">What's Barking &bull; Resealable bag &bull; Crunchy crumbles &bull; Made in USA</p>
-                    <span class="best-for">Best for: Kibble fatigue &amp; texture seekers</span>
-                    <p class="desc">Crunchy crumbles that smell like a fresh blueberry muffin — minus the sugar and junk. Dogs bored of their food perk right up. The texture adds that satisfying crunch that plain kibble just doesn't deliver. Natural ingredients, resealable bag.</p>
-                    <button class="pros-cons-toggle" onclick="toggleProsCons(this)">
-                        <span>Show pros &amp; cons</span>
-                        <span class="arrow">&#9660;</span>
-                    </button>
-                    <div class="pros-cons-content">
-                        <div class="grid">
-                            <div class="pros">
-                                <strong>👍 Pros</strong>
-                                <span>Great crunch &amp; aroma</span>
-                                <span>Natural ingredients only</span>
-                                <span>Resealable bag stays fresh</span>
+        <!-- Do They Actually Work? -->
+        <section id="science">
+            <div class="container">
+                <h2>Does Science Back It Up?</h2>
+                <p>Short answer: yes, if you're using them for the right reason.</p>
+
+                <div class="summary-box">
+                    <strong>The bottom line:</strong> Dogs evolved as scavengers who prefer variety. Eating the same kibble twice a day isn't natural. Toppers add aroma, texture, and moisture — the three things that make a meal interesting to a dog. The <a href="https://www.petfoodinstitute.org/facts-and-advice/" target="_blank" rel="noopener">Pet Food Institute</a> notes that more than half of U.S. dogs and cats are overweight or obese — a sign that many pets on standard diets aren't getting nutrition tailored to their needs. Targeted toppers can help address those gaps.
+                </div>
+
+                <h3>Nutritional gaps</h3>
+                <p>Most kibble is complete and balanced — for a generic dog. But seniors, puppies, and dogs with health conditions often have specific gaps. According to the <a href="https://www.petfoodinstitute.org/facts-and-advice/" target="_blank" rel="noopener">Pet Food Institute</a>, more than half of U.S. dogs and cats are overweight or obese — a reminder that one-size-fits-all feeding doesn't work for every pet. A targeted topper can bridge specific gaps: omega-3s for skin and coat, joint nutrients for seniors, without switching foods entirely.</p>
+
+                <h3>Hydration</h3>
+                <p>Broths, gravies, wet toppers — these are the easiest way to get more water into a dog that doesn't drink enough. Chronic mild dehydration is a known risk factor for urinary tract issues and kidney problems, especially in breeds prone to them. A moisture-rich topper can help bridge the gap without forcing your dog to drink more from the bowl.</p>
+            </div>
+        </section>
+
+        <!-- Products -->
+        <section id="picks">
+            <div class="container-wide">
+                <h2>Top Picks for 2026</h2>
+                <p>Every dog is different. We picked toppers for different needs. Scroll to find yours.</p>
+
+                <div class="affiliate-note">
+                    ⓘ When you buy through our links, we may earn a commission. This doesn't affect our picks — we recommend what we'd feed our own dogs.
+                </div>
+
+                <div class="products">
+
+                    <!-- Product 1: Beg & Barker Beef -->
+                    <div class="product-card" id="product-1">
+                        <div class="product-img">🥩</div>
+                        <div class="product-info">
+                            <h3>Beg &amp; Barker Beef Dog Food Topper</h3>
+                            <p class="brand">Beg &amp; Barker &bull; 8 oz &bull; Single ingredient &bull; Made in USA</p>
+                            <span class="best-for">Best for: Sensitive stomachs &amp; picky eaters</span>
+                            <p class="match">→ Your dog sniffs kibble and walks away? This one's for you.</p>
+                            <p class="desc">One ingredient: whole beef. Nothing else. If your dog has allergies, a finicky appetite, or you just want to know exactly what's in the bowl, this is as clean as it gets. Human-grade, USA-sourced. Dogs who turn up their nose at kibble go wild for this.</p>
+                            <button class="pros-cons-toggle" onclick="toggleProsCons(this)">
+                                <span>Show pros &amp; cons</span>
+                                <span class="arrow">&#9660;</span>
+                            </button>
+                            <div class="pros-cons-content">
+                                <div class="grid">
+                                    <div class="pros">
+                                        <strong>👍 Pros</strong>
+                                        <span>Single ingredient — no fillers</span>
+                                        <span>Human-grade, USA beef</span>
+                                        <span>Safe for all life stages</span>
+                                    </div>
+                                    <div class="cons">
+                                        <strong>👎 Cons</strong>
+                                        <span>Beef only — no variety</span>
+                                        <span>Small pouch (8 oz)</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="cons">
-                                <strong>👎 Cons</strong>
-                                <span>Not a complete nutritional topper</span>
-                                <span>Some dogs prefer savory</span>
-                            </div>
+                            <a class="btn" href="https://www.amazon.com/dp/B0CBN69T3P?tag=jamesma06-20" target="_blank" rel="nofollow sponsored">See why picky eaters love it <small>&#8594;</small></a>
                         </div>
                     </div>
-                    <a class="btn" href="https://www.amazon.com/dp/B0FM6HPPY8?tag=jamesma06-20" target="_blank" rel="nofollow sponsored">Make kibble exciting again <small>&#8594;</small></a>
-                </div>
-            </div>
 
-            <!-- Product 3: What's Barking Soft Bites Blueberry Beetroot -->
-            <div class="product-card">
-                <div class="product-img">🫐</div>
-                <div class="product-info">
-                    <h3>What's Barking Soft Bites — Blueberry Beetroot</h3>
-                    <p class="brand">What's Barking &bull; Soft chewy bites &bull; Made in USA</p>
-                    <span class="best-for">Best for: Training &amp; topping in one</span>
-                    <p class="desc">Soft, chewy, and easy to break apart. Crumble over kibble as a topper, or use as training treats on walks. Blueberry-beetroot adds antioxidants without artificial coloring. Bite-size means easy portion control — unlike big crumbly toppers you can't measure.</p>
-                    <button class="pros-cons-toggle" onclick="toggleProsCons(this)">
-                        <span>Show pros &amp; cons</span>
-                        <span class="arrow">&#9660;</span>
-                    </button>
-                    <div class="pros-cons-content">
-                        <div class="grid">
-                            <div class="pros">
-                                <strong>👍 Pros</strong>
-                                <span>Dual-purpose: topper + treat</span>
-                                <span>Soft — great for seniors' teeth</span>
-                                <span>Antioxidant-rich ingredients</span>
+                    <!-- Product 2: What's Barking Shakers Blueberry Muffin -->
+                    <div class="product-card" id="product-2">
+                        <div class="product-img">🧁</div>
+                        <div class="product-info">
+                            <h3>What's Barking Shakers Blueberry Muffin Dog Meal Topper</h3>
+                            <p class="brand">What's Barking &bull; Resealable bag &bull; Crunchy crumbles &bull; Made in USA</p>
+                            <span class="best-for">Best for: Kibble fatigue &amp; texture seekers</span>
+                            <p class="match">→ Your dog eats but looks bored mid-bowl? Try this.</p>
+                            <p class="desc">Crunchy crumbles that smell like a fresh blueberry muffin — minus the sugar and junk. Dogs bored of their food perk right up. The texture adds that satisfying crunch that plain kibble just doesn't deliver. Natural ingredients, resealable bag.</p>
+                            <button class="pros-cons-toggle" onclick="toggleProsCons(this)">
+                                <span>Show pros &amp; cons</span>
+                                <span class="arrow">&#9660;</span>
+                            </button>
+                            <div class="pros-cons-content">
+                                <div class="grid">
+                                    <div class="pros">
+                                        <strong>👍 Pros</strong>
+                                        <span>Great crunch &amp; aroma</span>
+                                        <span>Natural ingredients only</span>
+                                        <span>Resealable bag stays fresh</span>
+                                    </div>
+                                    <div class="cons">
+                                        <strong>👎 Cons</strong>
+                                        <span>Not a complete nutritional topper</span>
+                                        <span>Some dogs prefer savory</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="cons">
-                                <strong>👎 Cons</strong>
-                                <span>Small pieces, not a standalone topper</span>
-                                <span>Flavor may not work for every dog</span>
-                            </div>
+                            <a class="btn" href="https://www.amazon.com/dp/B0FM6HPPY8?tag=jamesma06-20" target="_blank" rel="nofollow sponsored">Make kibble exciting again <small>&#8594;</small></a>
                         </div>
                     </div>
-                    <a class="btn" href="https://www.amazon.com/dp/B0F3MVB3JW?tag=jamesma06-20" target="_blank" rel="nofollow sponsored">Two uses, one bag <small>&#8594;</small></a>
+
+                    <!-- Product 3: What's Barking Soft Bites Blueberry Beetroot -->
+                    <div class="product-card" id="product-3">
+                        <div class="product-img">🫐</div>
+                        <div class="product-info">
+                            <h3>What's Barking Soft Bites — Blueberry Beetroot</h3>
+                            <p class="brand">What's Barking &bull; Soft chewy bites &bull; Made in USA</p>
+                            <span class="best-for">Best for: Training &amp; topping in one</span>
+                            <p class="match">→ Need something that works as a topper AND a training treat? This does both.</p>
+                            <p class="desc">Soft, chewy, and easy to break apart. Crumble over kibble as a topper, or use as training treats on walks. Blueberry-beetroot adds antioxidants without artificial coloring. Bite-size means easy portion control — unlike big crumbly toppers you can't measure.</p>
+                            <button class="pros-cons-toggle" onclick="toggleProsCons(this)">
+                                <span>Show pros &amp; cons</span>
+                                <span class="arrow">&#9660;</span>
+                            </button>
+                            <div class="pros-cons-content">
+                                <div class="grid">
+                                    <div class="pros">
+                                        <strong>👍 Pros</strong>
+                                        <span>Dual-purpose: topper + treat</span>
+                                        <span>Soft — great for seniors' teeth</span>
+                                        <span>Antioxidant-rich ingredients</span>
+                                    </div>
+                                    <div class="cons">
+                                        <strong>👎 Cons</strong>
+                                        <span>Small pieces, not a standalone topper</span>
+                                        <span>Flavor may not work for every dog</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="btn" href="https://www.amazon.com/dp/B0F3MVB3JW?tag=jamesma06-20" target="_blank" rel="nofollow sponsored">Two uses, one bag <small>&#8594;</small></a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+        </section>
 
-        </div>
-    </div>
-</section>
+        <!-- How to Choose -->
+        <section id="how-to-choose">
+            <div class="container">
+                <h2>How to Pick the Right Topper for Your Dog</h2>
 
-<!-- How to Choose -->
-<section>
-    <div class="container">
-        <h2>How to Pick the Right Topper for Your Dog</h2>
+                <p><strong>Your dog is a picky eater.</strong> Start with a single-ingredient meat topper. The aroma alone is usually enough to kick-start eating. If that flops, try a crunchy crumble for texture contrast.</p>
 
-        <p><strong>Your dog is a picky eater.</strong> Start with a single-ingredient meat topper. The aroma alone is usually enough to kick-start eating. If that flops, try a crunchy crumble for texture contrast.</p>
+                <p><strong>Your dog is 7+ years old.</strong> Look for toppers with glucosamine, chondroitin, and omega-3s. Moisture-rich options also help with hydration if your senior tends to drink less.</p>
 
-        <p><strong>Your dog is 7+ years old.</strong> Look for toppers with glucosamine, chondroitin, and omega-3s. Moisture-rich options also help with hydration if your senior tends to drink less.</p>
+                <p><strong>Your dog has allergies.</strong> Single-ingredient is your safest bet. Skip blends with grains, soy, artificial additives, or unnamed "meat meals." Fewer ingredients = easier to spot the trigger.</p>
 
-        <p><strong>Your dog has allergies.</strong> Single-ingredient is your safest bet. Skip blends with grains, soy, artificial additives, or unnamed "meat meals." Fewer ingredients = easier to spot the trigger.</p>
+                <p><strong>Your dog is on a weight plan.</strong> Toppers add calories — keep it under 10% of daily intake. Stick to low-calorie crumbles or soft bites, and measure.</p>
 
-        <p><strong>Your dog is on a weight plan.</strong> Toppers add calories — keep it under 10% of daily intake. Stick to low-calorie crumbles or soft bites, and measure.</p>
+                <p><strong>Your dog is a working dog.</strong> High-protein, high-fat meat toppers provide the extra fuel they need.</p>
+            </div>
+        </section>
 
-        <p><strong>Your dog is a working dog.</strong> High-protein, high-fat meat toppers provide the extra fuel they need.</p>
-    </div>
-</section>
+        <!-- Quick FAQ -->
+        <section id="faq">
+            <div class="container">
+                <h2>Quick FAQ</h2>
 
-<!-- Quick FAQ -->
-<section>
-    <div class="container">
-        <h2>Quick FAQ</h2>
+                <div class="faq-item">
+                    <h3>Can I feed my dog meal toppers every day?</h3>
+                    <p>Yes — as long as it's food-grade (not a treat) and you account for the calories. Most toppers are designed for daily use. Keep it under 10% of daily calories.</p>
+                </div>
 
-        <div class="faq-item">
-            <h3>Can I feed my dog meal toppers every day?</h3>
-            <p>Yes — as long as it's food-grade (not a treat) and you account for the calories. Most toppers are designed for daily use. Keep it under 10% of daily calories.</p>
-        </div>
+                <div class="faq-item">
+                    <h3>Meal topper vs. treat — what's the difference?</h3>
+                    <p>Toppers go <em>into</em> the meal. Treats are given separately. Toppers are more nutrient-dense and palatability-focused; treats tend to have more sugar and fillers.</p>
+                </div>
 
-        <div class="faq-item">
-            <h3>Meal topper vs. treat — what's the difference?</h3>
-            <p>Toppers go <em>into</em> the meal. Treats are given separately. Toppers are more nutrient-dense and palatability-focused; treats tend to have more sugar and fillers.</p>
-        </div>
+                <div class="faq-item">
+                    <h3>Do I need to refrigerate after opening?</h3>
+                    <p>Check the label. Freeze-dried and dehydrated toppers generally don't need refrigeration. Wet/fresh ones usually do. Crunchy crumbles and soft bites in resealable bags are fine at room temp.</p>
+                </div>
 
-        <div class="faq-item">
-            <h3>Do I need to refrigerate after opening?</h3>
-            <p>Check the label. Freeze-dried and dehydrated toppers generally don't need refrigeration. Wet/fresh ones usually do. Crunchy crumbles and soft bites in resealable bags are fine at room temp.</p>
-        </div>
+                <div class="faq-item">
+                    <h3>Can I use meal toppers for puppies?</h3>
+                    <p>Yes, but check that it's labeled for all life stages. Single-ingredient meat toppers are generally safe for puppies. When in doubt, ask your vet.</p>
+                </div>
 
-        <div class="faq-item">
-            <h3>Can I use meal toppers for puppies?</h3>
-            <p>Yes, but check that it's labeled for all life stages. Single-ingredient meat toppers are generally safe for puppies. When in doubt, ask your vet.</p>
-        </div>
+                <div class="faq-item">
+                    <h3>Will a meal topper help my dog gain weight?</h3>
+                    <p>It can. Toppers add calories and flavor, which can encourage an under-eater to eat more. If weight gain is the goal, pick a high-protein meat topper. If it's not, watch portions.</p>
+                </div>
+            </div>
+        </section>
 
-        <div class="faq-item">
-            <h3>Will a meal topper help my dog gain weight?</h3>
-            <p>It can. Toppers add calories and flavor, which can encourage an under-eater to eat more. If weight gain is the goal, pick a high-protein meat topper. If it's not, watch portions.</p>
-        </div>
-    </div>
-</section>
+    </div><!-- .main-content -->
+</div><!-- .page-wrap -->
 
 <footer>
     <div class="container">
@@ -486,6 +629,39 @@ function toggleProsCons(el) {
         }
     }
 }
+
+function toggleMobileToc() {
+    var el = document.getElementById('mobileToc');
+    el.classList.toggle('open');
+}
+
+// Highlight active TOC link on scroll
+(function() {
+    var tocLinks = document.querySelectorAll('#toc a');
+    if (!tocLinks.length) return;
+    var sections = [];
+    tocLinks.forEach(function(a) {
+        var href = a.getAttribute('href');
+        if (href && href.startsWith('#')) {
+            var el = document.getElementById(href.substring(1));
+            if (el) sections.push({ el: el, link: a });
+        }
+    });
+    function onScroll() {
+        var scrollY = window.scrollY + 100;
+        var active = null;
+        for (var i = sections.length - 1; i >= 0; i--) {
+            if (sections[i].el.offsetTop <= scrollY) {
+                active = sections[i].link;
+                break;
+            }
+        }
+        tocLinks.forEach(function(a) { a.classList.remove('active'); });
+        if (active) active.classList.add('active');
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+})();
 </script>
 
 </body>
